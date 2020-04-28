@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-from pprint import pprint
 from googletrans import Translator
 
 class JapaneseHelpCommand(commands.DefaultHelpCommand):
@@ -8,14 +7,14 @@ class JapaneseHelpCommand(commands.DefaultHelpCommand):
         super().__init__()
         self.commands_heading = 'コマンド:'
         self.no_category = 'その他'
-        self.command_attrs['help'] = "コマンド一覧と簡単な説明を表示"
+        self.command_attrs['help'] = ""
 
     def get_ending_note(self):
-        return (f"コマンドの説明: hogehgoe\n"
-                f"コマンドの説明: fugafuga\n")
+        return (f"trans: 岡山の県北で培った語学力で翻訳するぜ。 /yattaze trans <翻訳先言語> <翻訳したい内容> で実行するんや\n"
+                f"help: 今開いている内容を出すぜ\n")
 
 
-TOKEN = ''
+TOKEN = 'NzAzOTY1MzU2NTQ4Njg1ODg0.XqWY1Q.YmeP-sNuJh5PGBitDXyOfTHMiPg'
 prefix = '/yattaze '
 
 
@@ -32,29 +31,20 @@ class Translate(commands.Cog):
             source {string} -- きたねぇ日本語を入れるぜ
         """
         trans_res = ''
-
+        translator = Translator()
         trans_res = translator.translate(source, dest=lang).text
 
         return trans_res
 
-    # 起動時処理
-    @commands.Bot.event()
-    async def on_ready(self):
-        print('ログインしたぜ')
-
     @commands.command()
     async def trans(self, ctx, arg1, arg2):
-        """
-        翻訳をします。\n/yattaze trans <翻訳先言語> <翻訳したい内容>
-        """
-
         res = self.translate(arg1, arg2)
         await ctx.send(res)
 
 
 bot = commands.Bot(command_prefix=prefix,
                    help_command=JapaneseHelpCommand())
-translator = Translator()
+bot.add_cog(Translate(bot=bot))
 bot.run(TOKEN)
 
 
