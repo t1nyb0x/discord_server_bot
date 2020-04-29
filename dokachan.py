@@ -12,6 +12,8 @@ class JapaneseHelpCommand(commands.DefaultHelpCommand):
     def get_ending_note(self):
         return (f"channels: このサーバーに存在するチャンネルを紹介するぜ\n"
                 f"\n"
+                f"channels en: 英語でこのサーバーに存在するチャンネルを紹介するぜ\n"
+                f"\n"
                 f"trans: 岡山の県北で培った語学力で翻訳するぜ。 /dokachan trans <翻訳先言語> <翻訳したい内容> で実行するんや\n"
                 f"\n"
                 f"translist: 岡山で学んだ翻訳可能言語を紹介するぜ。\n"
@@ -81,7 +83,7 @@ class Dokachan(commands.Cog):
                 プログラム        - Dokachanやyattazeを作った人がここで何かしらやってます。Botへの追加機能要望を出すのもありかも？
                 お問い合わせ窓口   - サーバーに関して気になることがあればこちらへ
                 麻雀             - 麻雀打ちたい人はこちらへ。大抵雀魂で打ってます
-                If you read it in English, please type "/dokachan channels -en"
+                If you read it in English, please type "/dokachan channels en"
             ```
                 """
 
