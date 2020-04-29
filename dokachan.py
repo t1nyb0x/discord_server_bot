@@ -37,7 +37,7 @@ class Dokachan(commands.Cog):
 
         return trans_res
 
-    def translist(self):
+    def translate_list(self):
         res = ''
         res = """このサーバーでよく見かける言語に変換する場合はこれを使ってね。
                     英語  en
@@ -55,8 +55,8 @@ class Dokachan(commands.Cog):
 
     @commands.command()
     async def translist(self, ctx):
-        res = self.translist()
-        ctx.send(res)
+        res = self.translate_list()
+        await ctx.send(res)
 
 bot = commands.Bot(command_prefix=prefix,
                    help_command=JapaneseHelpCommand())
