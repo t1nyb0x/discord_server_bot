@@ -45,12 +45,12 @@ class Dokachan(commands.Cog):
     def translateList(self):
         res = ''
         res = """
-            このサーバーでよく見かける言語に変換する場合はこれを使ってね。
+        ```このサーバーでよく見かける言語に変換する場合はこれを使ってね。
             英語  en
             韓国語 ko
             スペイン語 es
             日本語 ja
-            他の言語はこちらを参照してください https://cloud.google.com/translate/docs/languages?hl=ja
+            他の言語はこちらを参照してください https://cloud.google.com/translate/docs/languages?hl=ja```
             """
 
         return res
