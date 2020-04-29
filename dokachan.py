@@ -37,15 +37,27 @@ class Dokachan(commands.Cog):
 
         return trans_res
 
-    def translate_list(self):
+    def translateList(self):
         res = ''
         res = """このサーバーでよく見かける言語に変換する場合はこれを使ってね。
-                    英語  en
-                    韓国語 ko
-                    スペイン語 es
-                    他の言語はこちらを参照してください https://cloud.google.com/translate/docs/languages?hl=ja"""
+                英語  en
+                韓国語 ko
+                スペイン語 es
+                日本語 ja
+                他の言語はこちらを参照してください https://cloud.google.com/translate/docs/languages?hl=ja"""
 
         return res
+
+    def channelList(self):
+        res = ''
+        res = """welcome - ランディングチャンネル
+                チャンネル説明 - このサーバーに関する説明が掲載されています
+                告知 - このサーバーに関する告知や、個人に関する告知が掲載されます
+                自己紹介はこちらへ - サーバーに入ったらまずは自己紹介！
+                雑談 - 多分ここがメインチャンネル。好きなようにお喋りしましょう。喧嘩はご法度です
+                プログラム - Dokachanやyattazeを作った人がここで何かしらやってます。Botへの追加機能要望を出すのもありかも？
+                お問い合わせ窓口 - サーバーに関して気になることがあればこちらへ
+                麻雀 - 麻雀打ちたい人はこちらへ。大抵雀魂で打ってます"""
 
 
     @commands.command()
@@ -55,7 +67,12 @@ class Dokachan(commands.Cog):
 
     @commands.command()
     async def translist(self, ctx):
-        res = self.translate_list()
+        res = self.translateList()
+        await ctx.send(res)
+
+    @commands.command()
+    async def channels(self, ctx):
+        res = self.channelList()
         await ctx.send(res)
 
 bot = commands.Bot(command_prefix=prefix,
