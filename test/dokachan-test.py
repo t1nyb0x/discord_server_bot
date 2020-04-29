@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 from googletrans import Translator
-
+from pprint import pprint
 
 class JapaneseHelpCommand(commands.DefaultHelpCommand):
     def __init__(self):
@@ -56,23 +56,22 @@ class Dokachan(commands.Cog):
 
         return res
 
-    def channelList(self, arg = None):
+    def channelList(self, arg = "ja"):
         res = ''
         if arg == "en":
-            res = """
-            ```
-            channel explanation
-            welcome - landing channel
-            チャンネル説明 - It posting exlanation about this server.
-            告知 - It posting announcement about this server.
-            自己紹介はこちらへ - Please self introduce when, enter this server.
-            雑談 - This is chat channel. Maybe main.
-            プログラム - There is bot(yattaze, dokachan) developers in this channel.
-            お問い合わせ窓口 - It is support channel.
-            麻雀 - Mahjong channel. Mainly playing mahjongsoul.
+            res = """Channel Explanation
+            welcome          - Landing channel
+            チャンネル説明     - Channel information.
+            告知             - Announcements will be posted in this channel.
+            自己紹介はこちらへ - Please introduce yourself when you enter the server.
+            雑談             - The main chit-chat channel.
+            プログラム        - Bot-developing channel, such as yattaze, dokachan
+            お問い合わせ窓口   - Support channel for if you have any inquiries.
+            麻雀             - Mahjong channel. Mainly playing mahjongsoul.
             もし日本語で見たい場合は、「/dokachan channels」を実行してください」
+            ```
             """
-        else:
+        elif arg == "ja":
             res = """
             ```チャンネル説明
                 welcome          - ランディングチャンネル
@@ -83,7 +82,8 @@ class Dokachan(commands.Cog):
                 プログラム        - Dokachanやyattazeを作った人がここで何かしらやってます。Botへの追加機能要望を出すのもありかも？
                 お問い合わせ窓口   - サーバーに関して気になることがあればこちらへ
                 麻雀             - 麻雀打ちたい人はこちらへ。大抵雀魂で打ってます
-                If you read it in English, please type "/dokachan channels -en"```
+                If you read it in English, please type "/dokachan channels -en"
+            ```
                 """
 
 
@@ -95,13 +95,16 @@ class Dokachan(commands.Cog):
         await ctx.send(res)
 
     @commands.command()
-    async def translist(self, ctx, arg):
-        res = self.translateList(arg)
+    async def translist(self, ctx):
+        res = self.translateList()
         await ctx.send(res)
 
     @commands.command()
-    async def channels(self, ctx):
-        res = self.channelList()
+    async def channels(self, ctx, arg = None):
+        if arg == None :
+            arg = 'ja'
+
+        res = self.channelList(arg)
         await ctx.send(res)
 
 
