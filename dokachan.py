@@ -56,7 +56,7 @@ class Dokachan(commands.Cog):
     @commands.command()
     async def translist(self, ctx):
         res = self.translist()
-        await ctx.send(res)
+        ctx.send(res)
 
 bot = commands.Bot(command_prefix=prefix,
                    help_command=JapaneseHelpCommand())
