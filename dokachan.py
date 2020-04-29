@@ -58,7 +58,7 @@ class Dokachan(commands.Cog):
     def channelList(self, arg="ja"):
         res = ''
         if arg == "en":
-            res = """Channel Explanation
+            res = """```Channel Explanation
             welcome          - Landing channel
             チャンネル説明     - Channel information.
             告知             - Announcements will be posted in this channel.
