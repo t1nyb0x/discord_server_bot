@@ -45,12 +45,12 @@ class Dokachan(commands.Cog):
     def translateList(self):
         res = ''
         res = """
-            このサーバーでよく見かける言語に変換する場合はこれを使ってね。
+        ```このサーバーでよく見かける言語に変換する場合はこれを使ってね。
             英語  en
             韓国語 ko
             スペイン語 es
             日本語 ja
-            他の言語はこちらを参照してください https://cloud.google.com/translate/docs/languages?hl=ja
+            他の言語はこちらを参照してください https://cloud.google.com/translate/docs/languages?hl=ja```
             """
 
         return res
@@ -58,7 +58,7 @@ class Dokachan(commands.Cog):
     def channelList(self):
         res = ''
         res = """
-        チャンネル説明
+        ```チャンネル説明
             welcome - ランディングチャンネル
             チャンネル説明 - このサーバーに関する説明が掲載されています
             告知 - このサーバーに関する告知や、個人に関する告知が掲載されます
@@ -66,7 +66,7 @@ class Dokachan(commands.Cog):
             雑談 - 多分ここがメインチャンネル。好きなようにお喋りしましょう。喧嘩はご法度です
             プログラム - Dokachanやyattazeを作った人がここで何かしらやってます。Botへの追加機能要望を出すのもありかも？
             お問い合わせ窓口 - サーバーに関して気になることがあればこちらへ
-            麻雀 - 麻雀打ちたい人はこちらへ。大抵雀魂で打ってます
+            麻雀 - 麻雀打ちたい人はこちらへ。大抵雀魂で打ってます```
             """
 
         return res
