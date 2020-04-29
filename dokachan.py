@@ -39,11 +39,11 @@ class Dokachan(commands.Cog):
 
     def translist(self):
         res = ''
-        res = ("このサーバーでよく見かける言語に変換する場合はこれを使ってね。\n"
-                    "英語  en\n"
-                    "韓国語 ko\n"
-                    "スペイン語 es\n"
-                     "他の言語はこちらを参照してください https://cloud.google.com/translate/docs/languages?hl=ja")
+        res = """このサーバーでよく見かける言語に変換する場合はこれを使ってね。
+                    英語  en
+                    韓国語 ko
+                    スペイン語 es
+                    他の言語はこちらを参照してください https://cloud.google.com/translate/docs/languages?hl=ja"""
 
         return res
 
