@@ -56,20 +56,36 @@ class Dokachan(commands.Cog):
 
         return res
 
-    def channelList(self):
+    def channelList(self, arg = None):
         res = ''
-        res = """
-        ```チャンネル説明
-            welcome - ランディングチャンネル
-            チャンネル説明 - このサーバーに関する説明が掲載されています
-            告知 - このサーバーに関する告知や、個人に関する告知が掲載されます
-            自己紹介はこちらへ - サーバーに入ったらまずは自己紹介！
-            雑談 - 多分ここがメインチャンネル。好きなようにお喋りしましょう。喧嘩はご法度です
-            プログラム - Dokachanやyattazeを作った人がここで何かしらやってます。Botへの追加機能要望を出すのもありかも？
-            お問い合わせ窓口 - サーバーに関して気になることがあればこちらへ
-            麻雀 - 麻雀打ちたい人はこちらへ。大抵雀魂で打ってます
-            If you read it in English, please type "/dokachan channels -en"```
+        if arg == "en":
+            res = """
+            ```
+            channel explanation
+            welcome - landing channel
+            チャンネル説明 - It posting exlanation about this server.
+            告知 - It posting announcement about this server.
+            自己紹介はこちらへ - Please self introduce when, enter this server.
+            雑談 - This is chat channel. Maybe main.
+            プログラム - There is bot(yattaze, dokachan) developers in this channel.
+            お問い合わせ窓口 - It is support channel.
+            麻雀 - Mahjong channel. Mainly playing mahjongsoul.
+            もし日本語で見たい場合は、「/dokachan channels」を実行してください」
             """
+        else:
+            res = """
+            ```チャンネル説明
+                welcome          - ランディングチャンネル
+                チャンネル説明     - このサーバーに関する説明が掲載されています
+                告知             - このサーバーに関する告知や、個人に関する告知が掲載されます
+                自己紹介はこちらへ  - サーバーに入ったらまずは自己紹介！
+                雑談             - 多分ここがメインチャンネル。好きなようにお喋りしましょう。喧嘩はご法度です
+                プログラム        - Dokachanやyattazeを作った人がここで何かしらやってます。Botへの追加機能要望を出すのもありかも？
+                お問い合わせ窓口   - サーバーに関して気になることがあればこちらへ
+                麻雀             - 麻雀打ちたい人はこちらへ。大抵雀魂で打ってます
+                If you read it in English, please type "/dokachan channels -en"```
+                """
+
 
         return res
 
@@ -79,8 +95,8 @@ class Dokachan(commands.Cog):
         await ctx.send(res)
 
     @commands.command()
-    async def translist(self, ctx):
-        res = self.translateList()
+    async def translist(self, ctx, arg):
+        res = self.translateList(arg)
         await ctx.send(res)
 
     @commands.command()
