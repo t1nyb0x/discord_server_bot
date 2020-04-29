@@ -162,7 +162,7 @@ class Dokachan(commands.Cog):
 
     @commands.command()
     async def dokachanDiary1(self, ctx):
-        res = self.dokachanDiary1()
+        res = self.diary1()
         await ctx.send(res)
 
 bot = commands.Bot(command_prefix=prefix,
