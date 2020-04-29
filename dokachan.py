@@ -59,6 +59,8 @@ class Dokachan(commands.Cog):
                 お問い合わせ窓口 - サーバーに関して気になることがあればこちらへ
                 麻雀 - 麻雀打ちたい人はこちらへ。大抵雀魂で打ってます"""
 
+        return res
+
 
     @commands.command()
     async def trans(self, ctx, arg1, arg2):
