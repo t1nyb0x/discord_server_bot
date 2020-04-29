@@ -10,7 +10,8 @@ class JapaneseHelpCommand(commands.DefaultHelpCommand):
         self.command_attrs['help'] = ""
 
     def get_ending_note(self):
-        return (f"trans: 岡山の県北で培った語学力で翻訳するぜ。 /dokachan trans <翻訳先言語> <翻訳したい内容> で実行するんや\n"
+        return (f"channels: このサーバーに存在するチャンネルを紹介するぜ\n"
+                f"trans: 岡山の県北で培った語学力で翻訳するぜ。 /dokachan trans <翻訳先言語> <翻訳したい内容> で実行するんや\n"
                 f"翻訳可能言語は、 /dokachan translist で確認してくれ。\n"
                 f"help: 今開いている内容を出すぜ\n")
 
