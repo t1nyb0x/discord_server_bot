@@ -149,11 +149,11 @@ class Dokachan(commands.Cog):
     async def paisenGacha(self, ctx):
         val = random.randrange(10)
         if val % 3 == 0:
-            await ctx.send('<:paisenPi:705854745666912297>')
+            await ctx.send('<:pi:705864516227039345>')
         elif val % 3 == 1:
             await ctx.send('<:paisen:705864490973003807>')
         elif val % 3 == 2:
-            await ctx.send('<:pi:705864516227039345>')
+            await ctx.send('<:paisenPi:705854745666912297>')
 
 
 bot = commands.Bot(command_prefix=prefix,
