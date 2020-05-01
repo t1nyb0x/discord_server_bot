@@ -146,7 +146,7 @@ class Dokachan(commands.Cog):
 
     @commands.command()
     async def paisen(self, ctx):
-        await ctx.send('<:paisen:705855136765050910>')
+        await ctx.send('<:paisenPi:705854745666912297>')
 
 
 bot = commands.Bot(command_prefix=prefix,
