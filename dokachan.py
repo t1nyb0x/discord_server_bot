@@ -151,9 +151,9 @@ class Dokachan(commands.Cog):
         if val % 3 == 0:
             await ctx.send('<:paisenPi:705854745666912297>')
         elif val % 3 == 1:
-            await ctx.send('<:paisen:705862189000425654>')
+            await ctx.send('<:paisen:705864490973003807>')
         elif val % 3 == 2:
-            await ctx.send('<:pi:705861813736308776>')
+            await ctx.send('<:pi:705864516227039345>')
 
 
 bot = commands.Bot(command_prefix=prefix,
