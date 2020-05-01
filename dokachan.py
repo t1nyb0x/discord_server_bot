@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 from googletrans import Translator
+import random
 
 class JapaneseHelpCommand(commands.DefaultHelpCommand):
     def __init__(self):
@@ -145,8 +146,14 @@ class Dokachan(commands.Cog):
         await ctx.send(res)
 
     @commands.command()
-    async def paisen(self, ctx):
-        await ctx.send('<:paisenPi:705854745666912297>')
+    async def paisenGacha(self, ctx):
+        val = random.randrange(10)
+        if val % 3 == 0:
+            await ctx.send('<:paisenPi:705854745666912297>')
+        elif val % 3 == 1:
+            await ctx.send('<:paisen:705862189000425654>')
+        elif val % 3 == 2:
+            await ctx.send('<:pi:705862189000425654>')
 
 
 bot = commands.Bot(command_prefix=prefix,
