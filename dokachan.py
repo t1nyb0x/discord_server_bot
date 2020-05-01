@@ -144,6 +144,11 @@ class Dokachan(commands.Cog):
         res = self.diary1()
         await ctx.send(res)
 
+    @commands.command()
+    async def paisen(self, ctx):
+        await ctx.send('<:paisen:705855136765050910>')
+
+
 bot = commands.Bot(command_prefix=prefix,
                    help_command=JapaneseHelpCommand())
 bot.add_cog(Dokachan(bot=bot))
