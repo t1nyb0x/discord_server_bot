@@ -15,6 +15,8 @@ class JapaneseHelpCommand(commands.DefaultHelpCommand):
                 f"\n"
                 f"channels en: 英語でこのサーバーに存在するチャンネルを紹介するぜ\n"
                 f"\n"
+                f"paisenGacha: パイセンが作ったパイセンガチャだぜ\n"
+                f"\n"
                 f"trans: 岡山の県北で培った語学力で翻訳するぜ。 /dokachan trans <翻訳先言語> <翻訳したい内容> で実行するんや\n"
                 f"\n"
                 f"translist: 岡山で学んだ翻訳可能言語を紹介するぜ。\n"
@@ -92,8 +94,7 @@ class Dokachan(commands.Cog):
 
     def diary1(self):
         res = ''
-        res = """```
-                やったぜ。　投稿者：変態糞土方 (8月16日（水）07時14分22秒)
+        res = """```やったぜ。　投稿者：変態糞土方 (8月16日（水）07時14分22秒)
 
                 昨日の8月15日にいつもの浮浪者のおっさん（60歳）と先日メールくれた汚れ好きの土方のにいちゃん
                 （45歳）とわし（53歳）の3人で県北にある川の土手の下で盛りあったぜ。
@@ -121,6 +122,45 @@ class Dokachan(commands.Cog):
             """
         return res
 
+    def diary2(self):
+        res = ''
+        res = """```糞まみれで　投稿者：変態糞親父 (8月10日（木）14時30分56秒)
+
+                先日、二回目になるが例の浮浪者の親父と川原の土手でひさしぶりに会ったんや。
+                高架の下で道路からは見えないとこなんで、
+                2人で真っ裸になりちんぽを舐めあってからわしが持って来た、
+                いちぢく浣腸をお互いに入れあったんや。
+                しばらく我慢していたら2人とも腹がぐるぐると言い出して６９になり
+                お互いにけつの穴を舐めあっていたんだが、
+                わしもおっさんも我慢の限界が近づいているみたいで、
+                けつの穴がひくひくして来たんや。おっさんがわしのちんぽを舐めながら　
+                ああ＾～もう糞が出るう～～と言うまもなく、わしの顔にどば～っと糞が流れこんできた、
+                それと同時にわしもおっさんの口と顔に糞を思い切りひりだしてやったよ。
+                もう顔中に糞まみれや。お互いに糞を塗りあいながら
+                体中にぬってからわしがおっさんのけつにもう一発浣腸してから
+                糞まみれのちんぽを押し込みながら腰を使い糞を手ですくいとり、口の中に押し込むと舐めているんや。
+                お互いに小便をかけあったり糞を何回もぬりあい楽しんだよ。
+                最後は６９のままお互いの口に射精したんや。
+                3人や4人で糞まみれでやりたいぜ。おっさんも糞遊びが好きみたいじゃ。
+                わしは163*90*53、おっさんは、165*75*60や一緒に糞まみれになりたいやつ連絡くれよ。
+                岡山県の北部や。まあ～岡山市内ならいけるで。
+                はよう糞まみれになろうぜ。```
+            """
+        return res
+
+
+    # def dokatamikuzi(self):
+    #     val = random.randrange(100)
+    #     if val % 50 == 0:
+    #         res = "大吉だぜ。今日は土方姿で盛り合おうぜ。"
+    #     elif val % 50 == 1:
+    #         res = "大アナルだぜ。今日はイチジク浣腸を3本ずつ入れ合うことになる。"
+    #     elif val % 9 == 2:
+    #         res = "中吉や。コンビニで酒とつまみを買おう。"
+    #     elif val % 9 == 3:
+    #         res = "中アナルや。糞遊びはほどほどにね"
+
+
 
     @commands.command()
     async def trans(self, ctx, arg1, arg2):
@@ -146,6 +186,11 @@ class Dokachan(commands.Cog):
         await ctx.send(res)
 
     @commands.command()
+    async def dokachanDiary2(self, ctx):
+        res = self.diary2()
+        await ctx.send(res)
+
+    @commands.command()
     async def paisenGacha(self, ctx):
         val = random.randrange(10)
         if val % 3 == 0:
@@ -154,6 +199,10 @@ class Dokachan(commands.Cog):
             await ctx.send('<:paisen:705854168425824366>')
         elif val % 3 == 2:
             await ctx.send('<:paisenPi:705854745666912297>')
+
+    # @commands.command()
+    # async def omikuzi(self, ctx):
+    #     res = dokatamikuzi()
 
 
 bot = commands.Bot(command_prefix=prefix,
