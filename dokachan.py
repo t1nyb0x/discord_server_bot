@@ -173,6 +173,8 @@ class Dokachan(commands.Cog):
             res = "凶や。たまにはこういう日もあるぜ"
         elif val % 9 == 8:
             res = "大凶アナルや。こんな日に糞遊びすると、痔になるかもしれない"
+        else:
+            res = "吉や。邪淫って知ってるかな？"
         return res
 
 
