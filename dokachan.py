@@ -86,6 +86,9 @@ class Dokachan(commands.Cog):
                 プログラム        - Dokachanやyattazeを作った人がここで何かしらやってます。Botへの追加機能要望を出すのもありかも？
                 お問い合わせ窓口   - サーバーに関して気になることがあればこちらへ
                 麻雀             - 麻雀打ちたい人はこちらへ。大抵雀魂で打ってます
+                音ゲー用         - 音ゲーに関する話題や、リザルトをシェアする場所です
+                汚い雑談         - ああもう無茶苦茶や。糞まみれになりたいやつ、ここのチャンネルで雑談しようや（下ネタが多いので、ロール申請が必要です）
+                イベント用        - イベント系においての雑談場です。
                 If you read it in English, please type "/dokachan channels en"
             ```
                 """
@@ -149,16 +152,28 @@ class Dokachan(commands.Cog):
         return res
 
 
-    # def dokatamikuzi(self):
-    #     val = random.randrange(100)
-    #     if val % 50 == 0:
-    #         res = "大吉だぜ。今日は土方姿で盛り合おうぜ。"
-    #     elif val % 50 == 1:
-    #         res = "大アナルだぜ。今日はイチジク浣腸を3本ずつ入れ合うことになる。"
-    #     elif val % 9 == 2:
-    #         res = "中吉や。コンビニで酒とつまみを買おう。"
-    #     elif val % 9 == 3:
-    #         res = "中アナルや。糞遊びはほどほどにね"
+    def dokamikuzi(self):
+        res = ''
+        val = random.randrange(100)
+        if val % 50 == 0 and val % 9 == 5:
+            res = "大吉だぜ。今日は土方姿で盛り合おうぜ。"
+        elif val % 50 == 1 and val % 9 == 6:
+            res = "大アナルだぜ。今日はイチジク浣腸を3本ずつ入れ合うことになる。"
+        elif val % 9 == 2:
+            res = "中吉や。コンビニで酒とつまみを買おう。"
+        elif val % 9 == 3:
+            res = "中アナルや。糞遊びはほどほどにね"
+        elif val % 9 == 4:
+            res = "吉や。"
+        elif val % 9 == 5:
+            res = "吉アナルや。まぁ人並みでしょうね"
+        elif val % 9 == 6:
+            res = "末吉や。こんな日は糞遊びをしよう"
+        elif val % 9 == 7:
+            res = "凶や。たまにはこういう日もあるぜ"
+        elif val % 9 == 8:
+            res = "大凶アナルや。こんな日に糞遊びすると、痔になるかもしれない"
+        return res
 
 
 
@@ -200,9 +215,9 @@ class Dokachan(commands.Cog):
         elif val % 3 == 2:
             await ctx.send('<:paisenPi:705854745666912297>')
 
-    # @commands.command()
-    # async def omikuzi(self, ctx):
-    #     res = dokatamikuzi()
+    @commands.command()
+    async def omikuzi(self, ctx):
+        res = self.dokamikuzi()
 
 
 bot = commands.Bot(command_prefix=prefix,
