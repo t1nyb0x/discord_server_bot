@@ -64,15 +64,18 @@ class Dokachan(commands.Cog):
         res = ''
         if arg == "en":
             res = """```Channel Explanation
-            welcome          - Landing channel
-            チャンネル説明     - Channel information.
-            告知             - Announcements will be posted in this channel.
+            Welcome         - Landing channel
+            チャンネル説明    - Information about the channel can be found here.
+            告知            - Server and personal announcements will be posted in this channel.
             自己紹介はこちらへ - Please introduce yourself when you enter the server.
-            雑談             - The main chit-chat channel.
-            プログラム        - Bot-developing channel, such as yattaze, dokachan
-            お問い合わせ窓口   - Support channel for if you have any inquiries.
-            麻雀             - Mahjong channel. Mainly playing mahjongsoul.
-            もし日本語で見たい場合は、「/dokachan channels」を実行してください」
+            雑談            - The main chit-chat channel. Let's chat about anything, let's all get along.
+            プログラム       - The people who worked on Dokachan and yattaze do their magic here, maybe you can send a request to add additional features to the bots?
+            お問い合わせ窓口  - If you have any inquiries about the server, please let us know here.
+            麻雀            - Mahjong channel. We mainly play 雀魂 (MahjongSoul).
+            音ゲー用         - We talk about various rhythm games and share our results.
+            汚い雑談         -  This is the dirty chit-chat channel (there's a lot of dirty jokes, so a role request is required).
+            イベント用       - A channel dedicated to server events.
+            もし日本語で見たい場合は、「/dokachan channels」を実行してください
             ```
             """
         elif arg == "ja":
@@ -89,7 +92,7 @@ class Dokachan(commands.Cog):
                 音ゲー用         - 音ゲーに関する話題や、リザルトをシェアする場所です
                 汚い雑談         - ああもう無茶苦茶や。糞まみれになりたいやつ、ここのチャンネルで雑談しようや（下ネタが多いので、ロール申請が必要です）
                 イベント用        - イベント系においての雑談場です。
-                If you read it in English, please type "/dokachan channels en"
+                If you want to read it in English, please type  "/dokachan channels en"
             ```
                 """
 
