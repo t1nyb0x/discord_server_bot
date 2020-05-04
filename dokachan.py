@@ -218,6 +218,7 @@ class Dokachan(commands.Cog):
     @commands.command()
     async def omikuzi(self, ctx):
         res = self.dokamikuzi()
+        await ctx.send(res)
 
 
 bot = commands.Bot(command_prefix=prefix,
