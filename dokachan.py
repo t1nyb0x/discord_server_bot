@@ -157,7 +157,7 @@ class Dokachan(commands.Cog):
 
     def dokamikuzi(self):
         res = ''
-        val = random.randrange(100)
+        val = random.randrange(10000)
         if val % 50 == 0 and val % 9 == 5:
             res = "大吉だぜ。今日は土方姿で盛り合おうぜ。"
         elif val % 50 == 1 and val % 9 == 6:
