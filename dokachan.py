@@ -158,9 +158,9 @@ class Dokachan(commands.Cog):
     def dokamikuzi(self):
         res = ''
         val = random.randrange(10000)
-        if val % 50 == 0 and val % 9 == 5:
+        if val % 50 == 0:
             res = "大吉だぜ。今日は土方姿で盛り合おうぜ。"
-        elif val % 50 == 1 and val % 9 == 6:
+        elif val % 50 == 1:
             res = "大アナルだぜ。今日はイチジク浣腸を3本ずつ入れ合うことになる。"
         elif val % 9 == 2:
             res = "中吉や。コンビニで酒とつまみを買おう。"
