@@ -3,7 +3,7 @@ from discord.ext import commands
 from googletrans import Translator
 import random
 import dokafunc
-import settings
+from . import apitoken
 
 class JapaneseHelpCommand(commands.DefaultHelpCommand):
     def __init__(self):
