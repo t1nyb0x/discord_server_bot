@@ -14,4 +14,4 @@ class Weather():
 
 
 test = Weather()
-pprint(test.search('府県天気概況', '2020-05-06', '2020-05-06'))
+pprint(test.search('府県天気概況', '2020-07-02', '2020-07-02'))

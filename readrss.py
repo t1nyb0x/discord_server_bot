@@ -1,4 +1,4 @@
-import urllib
+import urllib.request
 from lxml import etree
 
 XML_URL = "http://weather.livedoor.com/forecast/rss/primary_area.xml"
