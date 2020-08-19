@@ -3,7 +3,7 @@ from discord.ext import commands
 from googletrans import Translator
 import random
 import dokafunc
-from . import apitoken
+import settings
 
 class JapaneseHelpCommand(commands.DefaultHelpCommand):
     def __init__(self):
@@ -26,7 +26,7 @@ class JapaneseHelpCommand(commands.DefaultHelpCommand):
                 f"help: 今開いている内容を出すぜ\n")
 
 
-TOKEN = settings.TOKEN
+TOKEN = apitoken.TOKEN
 prefix = '/dokachan '
 
 
