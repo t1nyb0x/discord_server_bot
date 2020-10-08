@@ -3,7 +3,7 @@ from discord.ext import commands
 from googletrans import Translator
 import random
 import dokafunc
-import settings
+from settings import apitoken
 
 class JapaneseHelpCommand(commands.DefaultHelpCommand):
     def __init__(self):
@@ -62,6 +62,11 @@ class Dokachan(commands.Cog):
 
         return res
 
+    def weather(self):
+        weather = dokafunc.weather.Weather(apitoken.WEATHER_TOKEN)
+        return weather.search('Kitahara')
+
+
     @commands.command()
     async def trans(self, ctx, arg1, arg2):
         res = self.translate(arg1, arg2)
@@ -103,6 +108,11 @@ class Dokachan(commands.Cog):
     @commands.command()
     async def omikuzi(self, ctx):
         res = dokafunc.gacha.dokamikuzi()
+        await ctx.send(res)
+
+    @commands.command()
+    async def weather(self, ctx):
+        res = self.weather()
         await ctx.send(res)
 
 
