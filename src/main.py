@@ -62,9 +62,10 @@ class Dokachan(commands.Cog):
 
         return res
 
-    def weather(self):
+    def forecast(self, location):
         weather = dokafunc.weather.Weather(apitoken.WEATHER_TOKEN)
-        return weather.search('Kitahara')
+        res = weather.search(location)
+        return res
 
 
     @commands.command()
@@ -111,8 +112,8 @@ class Dokachan(commands.Cog):
         await ctx.send(res)
 
     @commands.command()
-    async def weather(self, ctx):
-        res = self.weather()
+    async def weather(self, ctx, location):
+        res = self.forecast(location)
         await ctx.send(res)
 
 
