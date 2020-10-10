@@ -70,8 +70,8 @@ class Weather():
 
         current_temp = '現在の気温: ' + str(obj['main']['temp']) + '℃'
         feels_temp = '現在の体感温度: ' + str(obj['main']['feels_like']) + '℃'
-        temp_min = '今日の最低気温: ' + str(obj['main']['temp_min']) + '℃'
-        temp_max = '今日の最高気温: ' + str(obj['main']['temp_max']) + '℃'
+        temp_min = '最低気温: ' + str(obj['main']['temp_min']) + '℃'
+        temp_max = '最高気温: ' + str(obj['main']['temp_max']) + '℃'
         humidity = '現在の湿度: ' + str(obj['main']['humidity']) + '%'
 
         deg = obj['wind']['deg']
@@ -92,8 +92,8 @@ class Weather():
             obj['sys']['sunset'])
         sunset_jst = str(sunrise_utc.astimezone(JST))
 
-        sunrise = '今日の日出: ' + str(sunrise_utc) + '+9:00(JST)'
-        sunset = '今日の日没: ' + str(sunset_utc) + '+9:00(JST)'
+        sunrise = '日出: ' + str(sunrise_utc) + '+9:00(JST)'
+        sunset = '日没: ' + str(sunset_utc) + '+9:00(JST)'
 
         res = "```今日の" + obj['name'] + "の天気情報\n" + \
             weather_name + "\n" + \
