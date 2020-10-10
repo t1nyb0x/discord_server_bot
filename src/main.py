@@ -1,7 +1,9 @@
 import discord
 from discord.ext import commands
 from googletrans import Translator
-from pprint import pprint
+import random
+import dokafunc
+from settings import apitoken
 
 class JapaneseHelpCommand(commands.DefaultHelpCommand):
     def __init__(self):
@@ -13,6 +15,10 @@ class JapaneseHelpCommand(commands.DefaultHelpCommand):
     def get_ending_note(self):
         return (f"channels: このサーバーに存在するチャンネルを紹介するぜ\n"
                 f"\n"
+                f"channels en: 英語でこのサーバーに存在するチャンネルを紹介するぜ\n"
+                f"\n"
+                f"paisenGacha: パイセンが作ったパイセンガチャだぜ\n"
+                f"\n"
                 f"trans: 岡山の県北で培った語学力で翻訳するぜ。 /dokachan trans <翻訳先言語> <翻訳したい内容> で実行するんや\n"
                 f"\n"
                 f"translist: 岡山で学んだ翻訳可能言語を紹介するぜ。\n"
@@ -20,8 +26,8 @@ class JapaneseHelpCommand(commands.DefaultHelpCommand):
                 f"help: 今開いている内容を出すぜ\n")
 
 
-TOKEN = 'NzA0OTk4MTMxNDIyNTkzMDQ1.XqlSwQ.hv9FvzRIPLhTkxUo31xVEKDd1cw'
-prefix = '/dokachan-test '
+TOKEN = apitoken.TOKEN
+prefix = '/dokachan '
 
 
 class Dokachan(commands.Cog):
@@ -56,38 +62,11 @@ class Dokachan(commands.Cog):
 
         return res
 
-    def channelList(self, arg = "ja"):
-        res = ''
-        if arg == "en":
-            res = """Channel Explanation
-            welcome          - Landing channel
-            チャンネル説明     - Channel information.
-            告知             - Announcements will be posted in this channel.
-            自己紹介はこちらへ - Please introduce yourself when you enter the server.
-            雑談             - The main chit-chat channel.
-            プログラム        - Bot-developing channel, such as yattaze, dokachan
-            お問い合わせ窓口   - Support channel for if you have any inquiries.
-            麻雀             - Mahjong channel. Mainly playing mahjongsoul.
-            もし日本語で見たい場合は、「/dokachan channels」を実行してください」
-            ```
-            """
-        elif arg == "ja":
-            res = """
-            ```チャンネル説明
-                welcome          - ランディングチャンネル
-                チャンネル説明     - このサーバーに関する説明が掲載されています
-                告知             - このサーバーに関する告知や、個人に関する告知が掲載されます
-                自己紹介はこちらへ  - サーバーに入ったらまずは自己紹介！
-                雑談             - 多分ここがメインチャンネル。好きなようにお喋りしましょう。喧嘩はご法度です
-                プログラム        - Dokachanやyattazeを作った人がここで何かしらやってます。Botへの追加機能要望を出すのもありかも？
-                お問い合わせ窓口   - サーバーに関して気になることがあればこちらへ
-                麻雀             - 麻雀打ちたい人はこちらへ。大抵雀魂で打ってます
-                If you read it in English, please type "/dokachan channels -en"
-            ```
-                """
-
-
+    def forecast(self, location):
+        weather = dokafunc.weather.Weather(apitoken.WEATHER_TOKEN)
+        res = weather.search(location)
         return res
+
 
     @commands.command()
     async def trans(self, ctx, arg1, arg2):
@@ -100,11 +79,41 @@ class Dokachan(commands.Cog):
         await ctx.send(res)
 
     @commands.command()
-    async def channels(self, ctx, arg = None):
-        if arg == None :
+    async def channels(self, ctx, arg=None):
+        if arg == None:
             arg = 'ja'
 
-        res = self.channelList(arg)
+        res = dokafunc.channels.channelList(arg)
+        await ctx.send(res)
+
+    @commands.command()
+    async def dokachanDiary1(self, ctx):
+        res = dokafunc.diary.diary1()
+        await ctx.send(res)
+
+    @commands.command()
+    async def dokachanDiary2(self, ctx):
+        res = dokafunc.diary.diary2()
+        await ctx.send(res)
+
+    @commands.command()
+    async def paisenGacha(self, ctx):
+        val = random.randrange(10)
+        if val % 3 == 0:
+            await ctx.send('<:pi:705850200090083399>')
+        elif val % 3 == 1:
+            await ctx.send('<:paisen:705854168425824366>')
+        elif val % 3 == 2:
+            await ctx.send('<:paisenPi:705854745666912297>')
+
+    @commands.command()
+    async def omikuzi(self, ctx):
+        res = dokafunc.gacha.dokamikuzi()
+        await ctx.send(res)
+
+    @commands.command()
+    async def weather(self, ctx, location):
+        res = self.forecast(location)
         await ctx.send(res)
 
 
@@ -112,4 +121,3 @@ bot = commands.Bot(command_prefix=prefix,
                    help_command=JapaneseHelpCommand())
 bot.add_cog(Dokachan(bot=bot))
 bot.run(TOKEN)
-
