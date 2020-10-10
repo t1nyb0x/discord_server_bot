@@ -3,7 +3,7 @@ from discord.ext import commands
 from googletrans import Translator
 import random
 import dokafunc
-import settings
+from settings import apitoken
 
 class JapaneseHelpCommand(commands.DefaultHelpCommand):
     def __init__(self):
@@ -26,7 +26,7 @@ class JapaneseHelpCommand(commands.DefaultHelpCommand):
                 f"help: 今開いている内容を出すぜ\n")
 
 
-TOKEN = settings.TOKEN
+TOKEN = apitoken.TOKEN
 prefix = '/dokachan '
 
 
@@ -61,6 +61,12 @@ class Dokachan(commands.Cog):
             """
 
         return res
+
+    def forecast(self, location):
+        weather = dokafunc.weather.Weather(apitoken.WEATHER_TOKEN)
+        res = weather.search(location)
+        return res
+
 
     @commands.command()
     async def trans(self, ctx, arg1, arg2):
@@ -103,6 +109,11 @@ class Dokachan(commands.Cog):
     @commands.command()
     async def omikuzi(self, ctx):
         res = dokafunc.gacha.dokamikuzi()
+        await ctx.send(res)
+
+    @commands.command()
+    async def weather(self, ctx, location):
+        res = self.forecast(location)
         await ctx.send(res)
 
 

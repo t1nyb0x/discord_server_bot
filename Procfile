@@ -1,1 +1,1 @@
-discordbot: python dokachan.py
+discordbot: python ./src/main.py
