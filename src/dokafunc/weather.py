@@ -92,8 +92,8 @@ class Weather():
             obj['sys']['sunset'])
         sunset_jst = str(sunrise_utc.astimezone(JST))
 
-        sunrise = '今日の日出: ' + str(sunrise_utc)
-        sunset = '今日の日没: ' + str(sunset_utc)
+        sunrise = '今日の日出: ' + str(sunrise_utc) + '+9:00(JST)'
+        sunset = '今日の日没: ' + str(sunset_utc) + '+9:00(JST)'
 
         res = "```今日の" + obj['name'] + "の天気情報\n" + \
             weather_name + "\n" + \
