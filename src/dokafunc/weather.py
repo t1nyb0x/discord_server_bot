@@ -76,6 +76,7 @@ class Weather():
 
         deg = obj['wind']['deg']
         wind_direction = '現在の風向: ' + self.return_wind_direction(deg)
+        wind_speed = '風速: ' + str(obj['wind']['speed']) + 'm/s'
         if ('rain' in obj):
             if ('1h' in obj['rain']):
                 rain_1h = '過去1時間の降水量: ' + str(obj['rain']['1h'])
@@ -86,14 +87,15 @@ class Weather():
         JST = timezone(timedelta(hours=+9))
         sunrise_utc = dt.fromtimestamp(
             obj['sys']['sunrise'])
-        sunrise_jst = str(sunrise_utc.astimezone(JST))
+        sunrise_jst = dt.strftime(sunrise_utc.astimezone(JST), '%Y-%m-%d %H:%M:%S')
 
         sunset_utc = dt.fromtimestamp(
             obj['sys']['sunset'])
-        sunset_jst = str(sunrise_utc.astimezone(JST))
+        sunset_jst = dt.strftime(
+            sunset_utc.astimezone(JST), '%Y-%m-%d %H:%M:%S')
 
-        sunrise = '日出: ' + str(sunrise_utc) + '+9:00(JST)'
-        sunset = '日没: ' + str(sunset_utc) + '+9:00(JST)'
+        sunrise = '日出: ' + str(sunrise_jst) + '(JST)'
+        sunset = '日没: ' + str(sunset_jst) + '(JST)'
 
         res = "```今日の" + obj['name'] + "の天気情報\n" + \
             weather_name + "\n" + \
@@ -102,6 +104,7 @@ class Weather():
             temp_min + "\n" + \
             temp_max + "\n" + \
             wind_direction + "\n" + \
+            wind_speed + "\n" + \
             humidity + "\n" + \
             sunrise + "\n" + \
             sunset + "\n" + "```"
