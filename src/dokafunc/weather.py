@@ -87,7 +87,8 @@ class Weather():
         JST = timezone(timedelta(hours=+9))
         sunrise_utc = dt.fromtimestamp(
             obj['sys']['sunrise'])
-        sunrise_jst = dt.strftime(sunrise_utc.astimezone(JST), '%Y-%m-%d %H:%M:%S')
+        sunrise_jst = dt.strftime(
+            sunrise_utc.astimezone(JST), '%Y-%m-%d %H:%M:%S')
 
         sunset_utc = dt.fromtimestamp(
             obj['sys']['sunset'])
@@ -135,3 +136,4 @@ class Weather():
             index = 0
 
         return dname[index]
+1
