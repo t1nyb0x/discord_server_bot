@@ -2,3 +2,4 @@ discord.py >= 1.3.4
 googletrans
 requests
 python-dotenv
+discord.py[voice]
