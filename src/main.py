@@ -1,5 +1,5 @@
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 from googletrans import Translator
 import random
 import dokafunc
@@ -28,7 +28,7 @@ class JapaneseHelpCommand(commands.DefaultHelpCommand):
 
 TOKEN = apitoken.TOKEN
 prefix = '/dokachan '
-
+admin_id = [apitoken.HAL, apitoken.YUMA, apitoken.BIKKY]
 
 class Dokachan(commands.Cog):
     def __init__(self, bot):
@@ -66,7 +66,6 @@ class Dokachan(commands.Cog):
         weather = dokafunc.weather.Weather(apitoken.WEATHER_TOKEN)
         res = weather.search(location)
         return res
-
 
     @commands.command()
     async def trans(self, ctx, arg1, arg2):
@@ -116,8 +115,65 @@ class Dokachan(commands.Cog):
         res = self.forecast(location)
         await ctx.send(res)
 
+    @commands.command()
+    async def supervise_spaces(self, ctx):
+        """
+        スペース取得処理を開始する
+        """
+        user_id = ctx.message.author.id
+        if str(user_id) in admin_id:
+            await ctx.send('スペース取得定期実行を開始します\n')
+            self.start_schedule.start(ctx)
+        else:
+            await ctx.send('管理者以外からの実行はできません')
+
+    @commands.command()
+    async def stop_supervise_spaces(self, ctx):
+        """
+        スペース取得処理を止める
+        """
+        user_id = ctx.message.author.id
+        if str(user_id) in admin_id:
+            self.start_schedule.cancel()
+            await ctx.send('スペース取得定期実行を停止します\n')
+        else:
+            await ctx.send('管理者以外からの実行はできません')
+
+    @tasks.loop(minutes=5)
+    async def start_schedule(self, ctx):
+        """
+        スケジュール開始
+        """
+        await self.subscribe_spaces(ctx)
+
+    async def subscribe_spaces(self, ctx):
+        """
+        subscribe_spaces
+        スペース情報を購読する。
+        yuma_mhsのスペース情報を取得し、Discordで送信する。
+        """
+        space_searcher = dokafunc.get_space_data.GetSpaceData(bearer=apitoken.TWITTER_BEARER)
+        space_info = space_searcher.search(apitoken.YUMA_MHS_TWITTER_ID)
+
+
+        # スペースが見つからない場合は、メッセージを返却する
+        # if type(space_info) is str:
+        #     await ctx.send(space_info)
+        if type(space_info) is dict:
+            speaker_user = []
+            for speaker in space_info['speaker_info']:
+                speaker_user.append(speaker['name'] + '  https://twitter.com/' + speaker['username'])
+
+            content_text = "スペースが現在開催中です。\n\nタイトル： " + space_info['title'] + "\n" +  'https://twitter.com/i/spaces/' + space_info['space_id'] + "\n" + \
+                "開始時間： " + space_info['created_at'] + "\n" \
+                "現在" + str(len(speaker_user) + space_info['participant_count']) + "人が参加中です\n" \
+                "```スピーカー\n" + \
+                "\n".join(speaker_user) + \
+                "```"
+
+            await ctx.send(content_text)
 
 bot = commands.Bot(command_prefix=prefix,
-                   help_command=JapaneseHelpCommand())
+                help_command=JapaneseHelpCommand())
 bot.add_cog(Dokachan(bot=bot))
 bot.run(TOKEN)
