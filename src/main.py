@@ -86,26 +86,6 @@ class Dokachan(commands.Cog):
         await ctx.send(res)
 
     @commands.command()
-    async def dokachanDiary1(self, ctx):
-        res = dokafunc.diary.diary1()
-        await ctx.send(res)
-
-    @commands.command()
-    async def dokachanDiary2(self, ctx):
-        res = dokafunc.diary.diary2()
-        await ctx.send(res)
-
-    @commands.command()
-    async def paisenGacha(self, ctx):
-        val = random.randrange(10)
-        if val % 3 == 0:
-            await ctx.send('<:pi:705850200090083399>')
-        elif val % 3 == 1:
-            await ctx.send('<:paisen:705854168425824366>')
-        elif val % 3 == 2:
-            await ctx.send('<:paisenPi:705854745666912297>')
-
-    @commands.command()
     async def omikuzi(self, ctx):
         res = dokafunc.gacha.dokamikuzi()
         await ctx.send(res)
