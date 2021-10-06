@@ -139,6 +139,16 @@ class Dokachan(commands.Cog):
         else:
             await ctx.send('管理者以外からの実行はできません')
 
+    client = discord.Client()
+    @client.event
+    async def on_ready(self, ctx):
+        """
+        起動時実行
+        スペース取得処理を開始する
+        """
+        self.start_schedule(ctx)
+
+
     @tasks.loop(minutes=5)
     async def start_schedule(self, ctx):
         """
