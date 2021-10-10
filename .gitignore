@@ -2,3 +2,6 @@
 __pycache__
 src/test.py
 Test/*
+node_modules
+.env
+build
