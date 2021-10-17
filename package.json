@@ -11,6 +11,21 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "lint": "eslint src/main.ts"
     },
+    "lint-staged": {
+        "src/**/*.ts": [
+            "tsc --noEmit",
+            "eslint --ext .ts ./src --fix",
+            "git add"
+        ],
+        "src/**": [
+            "prettier --write"
+        ]
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
     "repository": {
         "type": "git",
         "url": "git@t1nyb0x-github:t1nyb0x/yumael_server_bot.git"
@@ -32,7 +47,9 @@
         "eslint": "^7.32.0",
         "eslint-config-prettier": "^8.3.0",
         "eslint-plugin-jest": "^25.0.1",
+        "husky": "^7.0.2",
         "jest": "^27.2.5",
+        "lint-staged": "^11.2.3",
         "prettier": "^2.4.1",
         "ts-loader": "^9.2.6"
     }
