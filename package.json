@@ -2,14 +2,14 @@
     "name": "discord-b0x",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "main.js",
     "scripts": {
-        "start": "node ./build/index.js",
-        "debug": "ts-node ./src/index.ts",
+        "start": "node ./build/main.js",
+        "debug": "ts-node ./src/main.ts",
         "compile": "tsc -p .",
         "compile:test": "tsc -p . --noEmit",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "lint": "eslint src/index.ts"
+        "lint": "eslint src/main.ts"
     },
     "repository": {
         "type": "git",
