@@ -21,18 +21,18 @@ export class TwitterSpace {
     private spaceFields = 'id,state,participant_count,title,created_at';
     private expansions = 'invited_user_ids,speaker_ids,creator_id,host_ids';
     private userFields = 'name,username,withheld';
-    private barer: string;
+    private bearer: string;
     private jsonPath = 'spacedata/space_history.json';
     private twitterRequest;
 
-    constructor(barer: string | undefined) {
-        if (barer === undefined)
+    constructor(bearer: string | undefined) {
+        if (bearer === undefined)
             throw new Error('TwitterAPIBearerが見つかりません');
-        this.barer = barer;
+        this.bearer = bearer;
         this.twitterRequest = axios.create({
             baseURL: 'https://api.twitter.com',
             headers: {
-                Authorization: this.barer,
+                Authorization: this.bearer,
             },
             responseType: 'json',
         });
