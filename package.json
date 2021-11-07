@@ -12,7 +12,7 @@
         "lint": "eslint src/main.ts"
     },
     "lint-staged": {
-        "src/**/*.ts": [
+        "*.@ts": [
             "tsc --noEmit",
             "eslint --ext .ts ./src --fix",
             "git add"

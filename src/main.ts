@@ -1,6 +1,5 @@
 import dotenv from 'dotenv';
 import { Client, Intents } from 'discord.js';
-import { Translate } from './modules/translate/translate';
 import { TwitterSpace } from './modules/space/space';
 
 const prefix = '>>';
@@ -32,11 +31,6 @@ client.on('messageCreate', async (m) => {
 
     const args = m.content.slice(prefix.length).trim().split(/ +/);
     const command = args.shift()?.toLowerCase();
-
-    if (command === 'translatelist') {
-        const translate = new Translate();
-        m.channel.send(translate.translateList());
-    }
 
     if (command === 'supervise_spaces') {
         const twitterSpace = new TwitterSpace(process.env.TWITTER_API_BEARER);
