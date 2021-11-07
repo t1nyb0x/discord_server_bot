@@ -17,12 +17,13 @@ interface spaceInfo {
 }
 
 export class TwitterSpace {
-    private endpoint = '/2/spaces/by/creator_ids?';
-    private spaceFields = 'id,state,participant_count,title,created_at';
-    private expansions = 'invited_user_ids,speaker_ids,creator_id,host_ids';
-    private userFields = 'name,username,withheld';
-    private bearer: string;
-    private jsonPath = 'spacedata/space_history.json';
+    private readonly endpoint = '/2/spaces/by/creator_ids?';
+    private readonly spaceFields =
+        'id,state,participant_count,title,created_at';
+    private readonly expansions =
+        'invited_user_ids,speaker_ids,creator_id,host_ids';
+    private readonly userFields = 'name,username,withheld';
+    private readonly bearer: string;
     private twitterRequest;
 
     constructor(bearer: string | undefined) {
