@@ -14,8 +14,7 @@
     "lint-staged": {
         "*.@ts": [
             "tsc --noEmit",
-            "eslint --ext .ts ./src --fix",
-            "git add"
+            "eslint --ext .ts ./src --fix"
         ],
         "src/**": [
             "prettier --write"
