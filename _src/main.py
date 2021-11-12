@@ -86,6 +86,7 @@ class Dokachan(commands.Cog):
         await ctx.send(res)
 
     @commands.command()
+<<<<<<< HEAD:src/main.py
     async def paisenGacha(self, ctx):
         val = random.randrange(10)
         if val % 3 == 0:
@@ -94,6 +95,11 @@ class Dokachan(commands.Cog):
             await ctx.send('<:paisen:705854168425824366>')
         elif val % 3 == 2:
             await ctx.send('<:paisenPi:705854745666912297>')
+=======
+    async def omikuzi(self, ctx):
+        res = dokafunc.gacha.dokamikuzi()
+        await ctx.send(res)
+>>>>>>> 85fce3f99062c293a9a65e0de1656aebf3c9b6cd:_src/main.py
 
     @commands.command()
     async def weather(self, ctx, location):
