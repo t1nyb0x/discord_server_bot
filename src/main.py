@@ -19,9 +19,9 @@ class JapaneseHelpCommand(commands.DefaultHelpCommand):
                 f"\n"
                 f"paisenGacha: パイセンが作ったパイセンガチャだぜ\n"
                 f"\n"
-                f"trans: 岡山の県北で培った語学力で翻訳するぜ。 /dokachan trans <翻訳先言語> <翻訳したい内容> で実行するんや\n"
+                f"trans: 翻訳するぜ /dokachan trans <翻訳先言語> <翻訳したい内容> で実行するんや\n"
                 f"\n"
-                f"translist: 岡山で学んだ翻訳可能言語を紹介するぜ。\n"
+                f"translist: 翻訳可能言語を紹介するぜ。\n"
                 f"\n"
                 f"help: 今開いている内容を出すぜ\n")
 
@@ -41,7 +41,7 @@ class Dokachan(commands.Cog):
 
         Arguments:
             lang   {string} -- 翻訳先言語
-            source {string} -- きたねぇ日本語を入れるぜ
+            source {string} -- 日本語を入れるぜ
         """
         trans_res = ''
         translator = Translator()
@@ -86,16 +86,6 @@ class Dokachan(commands.Cog):
         await ctx.send(res)
 
     @commands.command()
-    async def dokachanDiary1(self, ctx):
-        res = dokafunc.diary.diary1()
-        await ctx.send(res)
-
-    @commands.command()
-    async def dokachanDiary2(self, ctx):
-        res = dokafunc.diary.diary2()
-        await ctx.send(res)
-
-    @commands.command()
     async def paisenGacha(self, ctx):
         val = random.randrange(10)
         if val % 3 == 0:
@@ -104,11 +94,6 @@ class Dokachan(commands.Cog):
             await ctx.send('<:paisen:705854168425824366>')
         elif val % 3 == 2:
             await ctx.send('<:paisenPi:705854745666912297>')
-
-    @commands.command()
-    async def omikuzi(self, ctx):
-        res = dokafunc.gacha.dokamikuzi()
-        await ctx.send(res)
 
     @commands.command()
     async def weather(self, ctx, location):
