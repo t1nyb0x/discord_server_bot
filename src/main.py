@@ -86,16 +86,6 @@ class Dokachan(commands.Cog):
         await ctx.send(res)
 
     @commands.command()
-    async def dokachanDiary1(self, ctx):
-        res = dokafunc.diary.diary1()
-        await ctx.send(res)
-
-    @commands.command()
-    async def dokachanDiary2(self, ctx):
-        res = dokafunc.diary.diary2()
-        await ctx.send(res)
-
-    @commands.command()
     async def paisenGacha(self, ctx):
         val = random.randrange(10)
         if val % 3 == 0:
@@ -104,11 +94,6 @@ class Dokachan(commands.Cog):
             await ctx.send('<:paisen:705854168425824366>')
         elif val % 3 == 2:
             await ctx.send('<:paisenPi:705854745666912297>')
-
-    @commands.command()
-    async def omikuzi(self, ctx):
-        res = dokafunc.gacha.dokamikuzi()
-        await ctx.send(res)
 
     @commands.command()
     async def weather(self, ctx, location):
@@ -138,6 +123,16 @@ class Dokachan(commands.Cog):
             await ctx.send('スペース取得定期実行を停止します\n')
         else:
             await ctx.send('管理者以外からの実行はできません')
+
+    client = discord.Client()
+    @client.event
+    async def on_ready(self, ctx):
+        """
+        起動時実行
+        スペース取得処理を開始する
+        """
+        self.start_schedule(ctx)
+
 
     @tasks.loop(minutes=5)
     async def start_schedule(self, ctx):
