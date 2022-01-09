@@ -16,7 +16,7 @@
             "tsc --noEmit",
             "eslint --ext .ts ./src --fix"
         ],
-        "src/**/*.ts": [
+        "src/**": [
             "prettier --write"
         ]
     },

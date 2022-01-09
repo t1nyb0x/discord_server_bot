@@ -74,6 +74,7 @@ export class TwitterSpace {
             speakerUsers.push(speaker.name + ' https://twitter.com/' + speaker.username);
         }
 
+        // TODO: 0指定であること前提の作りになっているため、安全性に欠ける
         const spaceInfo = {
             spaceId: spaceSearchResponse.data[0].id,
             state: spaceSearchResponse.data[0].state,
