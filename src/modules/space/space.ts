@@ -2,10 +2,7 @@ import axios from 'axios';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const moment = require('moment');
 
-import {
-    lookupUserName,
-    lookupSpacesByCreatedUserId,
-} from './twitterResponseType';
+import { lookupUserName, lookupSpacesByCreatedUserId } from './twitterResponseType.interface';
 
 interface spaceInfo {
     spaceId: string;
@@ -16,19 +13,21 @@ interface spaceInfo {
     createdAt: string;
 }
 
+/**
+ * TwitterSpace取得クラス
+ *
+ * @field endpoint TwitterAPIエンドポイント
+ */
 export class TwitterSpace {
-    private readonly endpoint = '/2/spaces/by/creator_ids?';
-    private readonly spaceFields =
-        'id,state,participant_count,title,created_at';
-    private readonly expansions =
-        'invited_user_ids,speaker_ids,creator_id,host_ids';
-    private readonly userFields = 'name,username,withheld';
-    private readonly bearer: string;
+    private endpoint = '/2/spaces/by/creator_ids?';
+    private spaceFields = 'id,state,participant_count,title,created_at';
+    private expansions = 'invited_user_ids,speaker_ids,creator_id,host_ids';
+    private userFields = 'name,username,withheld';
+    private bearer: string;
     private twitterRequest;
 
     constructor(bearer: string | undefined) {
-        if (bearer === undefined)
-            throw new Error('TwitterAPIBearerが見つかりません');
+        if (bearer === undefined) throw new Error('TwitterAPIBearerが見つかりません');
         this.bearer = bearer;
         this.twitterRequest = axios.create({
             baseURL: 'https://api.twitter.com',
@@ -66,35 +65,22 @@ export class TwitterSpace {
      * @param spaceSearchResponse
      * @returns
      */
-    parseSpaceSearchRes(
-        spaceSearchResponse: lookupSpacesByCreatedUserId
-    ): spaceInfo | undefined {
-        if (
-            spaceSearchResponse.data === undefined ||
-            spaceSearchResponse.includes === undefined
-        )
-            return;
+    parseSpaceSearchRes(spaceSearchResponse: lookupSpacesByCreatedUserId): spaceInfo | undefined {
+        if (spaceSearchResponse.data === undefined || spaceSearchResponse.includes === undefined) return;
 
         // スピーカーの名前とURLのリストを作成
         const speakerUsers: string[] = [];
         for (const speaker of spaceSearchResponse.includes.users) {
-            speakerUsers.push(
-                speaker.name + ' https://twitter.com/' + speaker.username
-            );
+            speakerUsers.push(speaker.name + ' https://twitter.com/' + speaker.username);
         }
 
         const spaceInfo = {
             spaceId: spaceSearchResponse.data[0].id,
             state: spaceSearchResponse.data[0].state,
             participantCount: spaceSearchResponse.data[0].participant_count,
-            title:
-                spaceSearchResponse.data[0].title !== undefined
-                    ? spaceSearchResponse.data[0].title
-                    : '無題',
+            title: spaceSearchResponse.data[0].title !== undefined ? spaceSearchResponse.data[0].title : '無題',
             speakerUsers: speakerUsers,
-            createdAt: this.convertIsoGmtToStrJst(
-                spaceSearchResponse.data[0].created_at
-            ),
+            createdAt: this.convertIsoGmtToStrJst(spaceSearchResponse.data[0].created_at),
         };
         return spaceInfo;
     }
@@ -117,9 +103,7 @@ export class TwitterSpace {
      * @returns
      */
     async userNameToUserId(userName: string): Promise<string> {
-        const res = await this.twitterRequest.get(
-            '/2/users/by/username/' + userName
-        );
+        const res = await this.twitterRequest.get('/2/users/by/username/' + userName);
         if (res.status === 200) {
             const response: lookupUserName = res.data;
             return response.data.id;

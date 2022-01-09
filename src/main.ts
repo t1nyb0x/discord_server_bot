@@ -1,16 +1,13 @@
 import dotenv from 'dotenv';
 import { Client, Intents } from 'discord.js';
 import { TwitterSpace } from './modules/space/space';
+import { GetWeatherData } from './usecase/getWeatherData.usecase';
 
 const prefix = '>>';
 dotenv.config();
 
 const client = new Client({
-    intents: [
-        Intents.FLAGS.GUILDS,
-        Intents.FLAGS.GUILD_MESSAGES,
-        Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
-    ],
+    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS],
 });
 const discordToken = process.env.TOKEN;
 if (discordToken == undefined) {
@@ -34,6 +31,13 @@ client.on('messageCreate', async (m) => {
 
     if (command === 'supervise_spaces') {
         const res = await startGetTwitterSpace(args);
+        if (res === undefined) return;
+        m.channel.send(res);
+    }
+
+    if (command === 'weather') {
+        const getweatherData = new GetWeatherData(process.env.WEATHER_TOKEN);
+        const res = await getweatherData.getWeatherInfo(args);
         if (res === undefined) return;
         m.channel.send(res);
     }
@@ -61,4 +65,5 @@ const startGetTwitterSpace = async (args: string[]) => {
 
     return ctxText;
 };
+
 client.login(discordToken);
