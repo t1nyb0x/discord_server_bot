@@ -1,6 +1,0 @@
-discord.py
-googletrans
-requests
-python-dotenv
-discord.py[voice]
-pytz

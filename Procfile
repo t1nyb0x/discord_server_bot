@@ -1,1 +1,1 @@
-discordbot: python ./src/main.py
+web: node build/main.js

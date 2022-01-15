@@ -3,6 +3,12 @@
     "version": "1.0.0",
     "description": "",
     "main": "main.js",
+<<<<<<< HEAD
+=======
+    "engines": {
+        "node": "16.x"
+    },
+>>>>>>> master
     "scripts": {
         "start": "node ./build/main.js",
         "debug": "ts-node ./src/main.ts",
@@ -10,6 +16,7 @@
         "compile:test": "tsc -p . --noEmit",
         "test": "echo \"Error: no test specified\" && exit 1",
         "lint": "eslint src/main.ts",
+<<<<<<< HEAD
         "precommit": "lint-staged"
     },
     "lint-staged": {
@@ -22,15 +29,46 @@
     "repository": {
         "type": "git",
         "url": "git@t1nyb0x-github:t1nyb0x/yumael_server_bot.git"
+=======
+        "postinstall": "tsc -p ."
+    },
+    "lint-staged": {
+        "*.@ts": [
+            "tsc --noEmit",
+            "eslint --ext .ts ./src --fix"
+        ],
+        "src/**": [
+            "prettier --write"
+        ]
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "repository": {
+        "type": "git",
+        "url": "git@t1nyb0x-github:t1nyb0x/discord_server_bot.git"
+>>>>>>> master
     },
     "author": "",
     "license": "ISC",
     "dependencies": {
         "@discordjs/rest": "0.1.0-canary.0",
         "@discordjs/voice": "^0.6.0",
+<<<<<<< HEAD
         "discord-api-types": "^0.23.1",
         "discord.js": "^13.2.0",
         "dotenv": "^10.0.0",
+=======
+        "axios": "^0.24.0",
+        "discord-api-types": "^0.23.1",
+        "discord.js": "^13.2.0",
+        "dotenv": "^10.0.0",
+        "express": "^4.17.2",
+        "moment": "^2.29.1",
+        "moment-timezone": "^0.5.34",
+>>>>>>> master
         "typescript": "^4.4.3"
     },
     "devDependencies": {
@@ -43,6 +81,10 @@
         "husky": "^7.0.2",
         "jest": "^27.2.5",
         "lint-staged": "^11.2.3",
+<<<<<<< HEAD
+=======
+        "npm-run-all": "^4.1.5",
+>>>>>>> master
         "prettier": "^2.4.1",
         "ts-loader": "^9.2.6"
     }

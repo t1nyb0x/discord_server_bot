@@ -2,10 +2,6 @@
 __pycache__
 src/test.py
 Test/*
-<<<<<<< HEAD
-src/settings/.env
-=======
 node_modules
 .env
 build
->>>>>>> 85fce3f99062c293a9a65e0de1656aebf3c9b6cd
