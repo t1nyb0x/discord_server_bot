@@ -9,7 +9,8 @@
         "compile": "tsc -p .",
         "compile:test": "tsc -p . --noEmit",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "lint": "eslint src/main.ts"
+        "lint": "eslint src/main.ts",
+        "postinstall": "tsc -p ."
     },
     "lint-staged": {
         "*.@ts": [
