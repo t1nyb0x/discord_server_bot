@@ -24,7 +24,7 @@ export class Weather {
         const requestUrl = this.api + '&q=' + cityName + '&lang=ja';
 
         // TODO: エラー時を考慮した処理を作成すること
-        const res = this.parseWeatherData((await axios.get(requestUrl)).data);
+        const res = this.parseWeatherData((await axios.get(encodeURI(requestUrl))).data);
 
         return res;
     }
