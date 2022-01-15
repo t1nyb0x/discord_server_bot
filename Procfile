@@ -1,1 +1,2 @@
-discordbot: python ./src/main.py
+discordbot: npm build
+discordbot: npm start
