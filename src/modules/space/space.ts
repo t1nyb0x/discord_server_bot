@@ -1,7 +1,5 @@
 import axios from 'axios';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const moment = require('moment');
-
+import { ConvertTimezone } from 'service/convertTimezone';
 import { lookupUserName, lookupSpacesByCreatedUserId } from './twitterResponseType.interface';
 
 interface spaceInfo {
@@ -25,6 +23,7 @@ export class TwitterSpace {
     private userFields = 'name,username,withheld';
     private bearer: string;
     private twitterRequest;
+    protected convertTimezone = new ConvertTimezone();
 
     constructor(bearer: string | undefined) {
         if (bearer === undefined) throw new Error('TwitterAPIBearerが見つかりません');
@@ -81,21 +80,9 @@ export class TwitterSpace {
             participantCount: spaceSearchResponse.data[0].participant_count,
             title: spaceSearchResponse.data[0].title !== undefined ? spaceSearchResponse.data[0].title : '無題',
             speakerUsers: speakerUsers,
-            createdAt: this.convertIsoGmtToStrJst(spaceSearchResponse.data[0].created_at),
+            createdAt: this.convertTimezone.isoGmttoJst(spaceSearchResponse.data[0].created_at),
         };
         return spaceInfo;
-    }
-
-    /**
-     * TwitterAPIから受け取ったGMT（ISO表記）を
-     * JST（文字列）変換する。
-     * 時間が取得できない場合は、空文字列を返却する
-     * @param isogmt ISO表記GMT時間
-     */
-    convertIsoGmtToStrJst(isogmt: string | undefined): string {
-        if (isogmt === undefined) return '';
-        const date = moment(isogmt).format('YYYY/MM/DD HH:mm:ss');
-        return date;
     }
 
     /**

@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { OpenWeatherResponse } from './openweatherResponseType.interface';
 import { WeatherResponse } from './weatherResponseType.interface';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const moment = require('moment-timezone');
+import { ConvertTimezone } from '../../service/convertTimezone';
 
 export class Weather {
     private api: string;
+    protected convertTimeZone: ConvertTimezone = new ConvertTimezone();
 
     constructor(token: string | undefined) {
         if (token === undefined) {
@@ -51,9 +51,9 @@ export class Weather {
             clouds: weatherData.clouds ? weatherData.clouds.all : undefined,
             rain: weatherData.rain ? weatherData.rain : undefined,
             snow: weatherData.snow ? weatherData.snow : undefined,
-            sunrise: this.convertUTCtoJST(weatherData.sys.sunrise).trim(),
-            sunset: this.convertUTCtoJST(weatherData.sys.sunset).trim(),
-            updatedTime: this.convertUTCtoJST(weatherData.dt).trim(),
+            sunrise: this.convertTimeZone.unixtimeToJst(weatherData.sys.sunrise).trim(),
+            sunset: this.convertTimeZone.unixtimeToJst(weatherData.sys.sunset).trim(),
+            updatedTime: this.convertTimeZone.unixtimeToJst(weatherData.dt).trim(),
         };
 
         return parsedWeatherData;
@@ -88,14 +88,5 @@ export class Weather {
         if (index > 16) index = 0;
 
         return dname[index];
-    }
-
-    /**
-     * UTCをJSTへ変換する
-     */
-    convertUTCtoJST(unixtime: number): string {
-        moment.tz.setDefault('Asia/Tokyo');
-        const date = moment(unixtime, 'X').format('YYYY-MM-DD HH:mm:ss');
-        return date;
     }
 }
