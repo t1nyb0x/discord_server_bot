@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { OpenWeatherResponse } from './openweatherResponseType.interface';
 import { WeatherResponse } from './weatherResponseType.interface';
-import { ConvertTimezone } from '../../service/convertTimezone';
+import { ConvertTimezone } from '../timezone/convertTimezone';
 
 export class Weather {
     private api: string;

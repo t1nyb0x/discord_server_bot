@@ -1,4 +1,13 @@
-export interface lookupUserName {
+export interface SpaceInfo {
+    spaceId: string;
+    state: string;
+    participantCount: number;
+    title: string;
+    speakerUsers: string[];
+    createdAt: string;
+}
+
+export interface LookupUserName {
     data: {
         id: string;
         name: string;
@@ -6,17 +15,17 @@ export interface lookupUserName {
     };
 }
 
-export interface lookupSpacesByCreatedUserId {
-    data?: spaceData[];
+export interface MultipleLookupSpacesByCreatedUserId {
+    data?: SpaceData[];
     includes?: {
-        users: includeUsers[];
+        users: IncludeUsers[];
     };
     meta: {
         result_count: number;
     };
 }
 
-interface spaceData {
+interface SpaceData {
     title?: string;
     host_ids: string[];
     participant_count: number;
@@ -26,7 +35,7 @@ interface spaceData {
     id: string;
 }
 
-interface includeUsers {
+interface IncludeUsers {
     name: string;
     id: string;
     username: string;

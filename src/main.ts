@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import { Client, Intents } from 'discord.js';
-import { TwitterSpace } from './modules/space/space';
+import { TwitterController } from './controller/twitterController';
 import { GetWeatherData } from './usecase/getWeatherData.usecase';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const express = require('express');
@@ -38,9 +38,12 @@ client.on('messageCreate', async (m) => {
     const command = args.shift()?.toLowerCase();
 
     if (command === 'supervise_spaces') {
-        const res = await startGetTwitterSpace(args);
-        if (res === undefined) return;
-        m.channel.send(res);
+        const twitterController = TwitterController.getInstance();
+        twitterController.searchSpaces(args);
+        // const getTwitterSpaceData = new GetTwitterSpaceData();
+        // const res = await getTwitterSpaceData.startGetTwitterSpace(args);
+        // if (res === undefined) return;
+        // m.channel.send(res);
     }
 
     if (command === 'weather') {
@@ -50,28 +53,5 @@ client.on('messageCreate', async (m) => {
         m.channel.send(res);
     }
 });
-
-const startGetTwitterSpace = async (args: string[]) => {
-    const twitterSpace = new TwitterSpace(process.env.TWITTER_API_BEARER);
-    // ユーザー名を指定して、スペースの検索を行う
-    const res = await twitterSpace.search(args[0]);
-
-    if (res === undefined) return;
-
-    const ctxText = `スペースが現在開催中です。
-        
-    タイトル：${res.title}
-    https://twitter.com/i/spaces/${res.spaceId}
-    
-    開始時間： ${res.createdAt}
-    現在${String(res.participantCount)}人が参加中です
-    スピーカー
-    \`\`\`
-    ${res.speakerUsers.join('\n')}
-    \`\`\`
-        `;
-
-    return ctxText;
-};
 
 client.login(discordToken);
