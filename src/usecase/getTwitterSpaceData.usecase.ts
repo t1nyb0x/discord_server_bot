@@ -83,7 +83,7 @@ https://twitter.com/i/spaces/${space.spaceId}
             const speakerUsers: string[] = [];
             let createUser: IncludeUsers | undefined;
             if (spaceSearchResponse.includes !== undefined) {
-                // スペースに参加しているスピーカーIDから、ユーザー情報を取得する
+                // スペースに参加しているスピーカーIDから、ユーザー情報を抽出する
                 const attendanceSpakers = spaceSearchResponse.includes.users.filter((user) => {
                     return spaceData.speaker_ids.find((speaker_id) => speaker_id === user.id);
                 });
@@ -92,7 +92,7 @@ https://twitter.com/i/spaces/${space.spaceId}
                     speakerUsers.push(speaker.name + ' http://twitter.com' + speaker.username);
                 }
 
-                // スペース作成者のscreen_nameを取得
+                // スペース作成者のユーザー情報を抽出
                 createUser = spaceSearchResponse.includes.users.find((user) => user.id === spaceData.creator_id);
             }
             return {
