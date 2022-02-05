@@ -1,4 +1,14 @@
-export interface lookupUserName {
+export interface SpaceInfo {
+    spaceId: string;
+    state: string;
+    participantCount: number;
+    title: string;
+    speakerUsers: string[];
+    creator: string;
+    createdAt: string;
+}
+
+export interface LookupUserName {
     data: {
         id: string;
         name: string;
@@ -6,27 +16,36 @@ export interface lookupUserName {
     };
 }
 
-export interface lookupSpacesByCreatedUserId {
-    data?: spaceData[];
+export interface MultipleLookupSpacesByCreatedUserId {
+    data?: SpaceData[];
     includes?: {
-        users: includeUsers[];
+        users: IncludeUsers[];
     };
     meta: {
         result_count: number;
     };
 }
 
-interface spaceData {
-    title?: string;
-    host_ids: string[];
-    participant_count: number;
-    created_at: string;
-    creator_id: string;
+interface SpaceData {
+    /** スペースのステータス */
     state: string;
+    /** 参加者数 */
+    participant_count: number;
+    /** ホスト */
+    host_ids: string[];
+    /** スペースID */
     id: string;
+    /** 作成日時（UTC） */
+    created_at: string;
+    /** スペースタイトル */
+    title?: string;
+    /** 作成者ID */
+    creator_id: string;
+    /** スピーカーID */
+    speaker_ids: string[];
 }
 
-interface includeUsers {
+export interface IncludeUsers {
     name: string;
     id: string;
     username: string;
