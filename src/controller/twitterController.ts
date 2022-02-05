@@ -1,6 +1,4 @@
-import { User as TwitterUser } from '../api/twitter/user.api';
-import { Space as TwitterSpace } from '../api/twitter/space.api';
-import { SpaceInfo } from 'modules/space/twitterResponseType.interface';
+import { GetTwitterSpaceData } from '../usecase/getTwitterSpaceData.usecase';
 
 export class TwitterController {
     private static instance: TwitterController;
@@ -21,18 +19,39 @@ export class TwitterController {
      * @param args コマンド引数として渡るユーザーID
      * @returns
      */
-    async searchSpaces(args: string[]): Promise<SpaceInfo | undefined> {
-        const twitterUser = new TwitterUser(process.env.TWITTER_API_BEARER);
-        // 受け取ったscreen nameからuser idを取得する
-        const usersId = await Promise.all(
-            args.map(async (userName) => {
-                const userId = await twitterUser.screenNameToUserId(userName);
-                return userId;
-            })
-        );
+    async searchSpaces(args: string[]): Promise<string> {
+        const getTwitterSpaceData = new GetTwitterSpaceData(process.env.TWITTER_API_BEARER);
+        const result = getTwitterSpaceData.getTwitterSpace(args);
+        return result;
+    }
 
-        const twitterSpace = new TwitterSpace(process.env.TWITTER_API_BEARER);
-        const spaceData = await twitterSpace.searchSpaces(usersId);
-        return spaceData;
+    /**
+     * 引数が不正ではないかチェックする
+     * @param screenNames
+     */
+    checkScreenName(screenNames: string[]): { error: boolean; errorMessage?: string } {
+        // 引数が入っているか
+        if (!screenNames.length) {
+            return {
+                error: true,
+                errorMessage: 'ユーザー名を入力してください',
+            };
+        }
+
+        // 引数であるscreenNameが、Twitterの定める条件となっているか
+        const resultArr = screenNames.map((screenName) => {
+            return /^[A-Za-z0-9_]{1,15}$/.test(screenName);
+        });
+
+        if (resultArr.some((result) => result === false)) {
+            return {
+                error: true,
+                errorMessage: 'ユーザー名が不正です',
+            };
+        } else {
+            return {
+                error: false,
+            };
+        }
     }
 }

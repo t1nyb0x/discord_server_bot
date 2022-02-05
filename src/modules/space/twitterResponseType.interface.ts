@@ -4,6 +4,7 @@ export interface SpaceInfo {
     participantCount: number;
     title: string;
     speakerUsers: string[];
+    creator: string;
     createdAt: string;
 }
 
@@ -26,16 +27,25 @@ export interface MultipleLookupSpacesByCreatedUserId {
 }
 
 interface SpaceData {
-    title?: string;
-    host_ids: string[];
-    participant_count: number;
-    created_at: string;
-    creator_id: string;
+    /** スペースのステータス */
     state: string;
+    /** 参加者数 */
+    participant_count: number;
+    /** ホスト */
+    host_ids: string[];
+    /** スペースID */
     id: string;
+    /** 作成日時（UTC） */
+    created_at: string;
+    /** スペースタイトル */
+    title?: string;
+    /** 作成者ID */
+    creator_id: string;
+    /** スピーカーID */
+    speaker_ids: string[];
 }
 
-interface IncludeUsers {
+export interface IncludeUsers {
     name: string;
     id: string;
     username: string;

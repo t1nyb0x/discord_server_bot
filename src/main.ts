@@ -14,10 +14,22 @@ app.listen(PORT, () => {
     console.log(`Our app is running on port ${PORT}`);
 });
 
+switch (process.env.ENVIRONMENT) {
+    case 'production':
+        // eslint-disable-next-line no-var
+        var discordToken = process.env.PRODUCTION_TOKEN;
+        break;
+
+    case 'develop':
+        // eslint-disable-next-line no-var
+        var discordToken = process.env.DEVELOP_TOKEN;
+        break;
+}
+
 const client = new Client({
     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS],
 });
-const discordToken = process.env.TOKEN;
+
 if (discordToken === undefined) {
     throw new Error('Failed get discordToken');
 }
@@ -39,11 +51,12 @@ client.on('messageCreate', async (m) => {
 
     if (command === 'supervise_spaces') {
         const twitterController = TwitterController.getInstance();
-        twitterController.searchSpaces(args);
-        // const getTwitterSpaceData = new GetTwitterSpaceData();
-        // const res = await getTwitterSpaceData.startGetTwitterSpace(args);
-        // if (res === undefined) return;
-        // m.channel.send(res);
+        const checkResult = twitterController.checkScreenName(args);
+        if (checkResult.error && checkResult.errorMessage) {
+            m.channel.send(checkResult.errorMessage);
+        } else {
+            m.channel.send(await twitterController.searchSpaces(args));
+        }
     }
 
     if (command === 'weather') {

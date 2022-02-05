@@ -8,12 +8,16 @@ export class User extends TwitterBase {
      * @returns Promise<string>
      */
     async screenNameToUserId(screenName: string): Promise<string> {
-        const res = await this.axiosRequestBase.get('/2/users/by/username/' + screenName);
-        if (res.status === 200) {
-            const response: LookupUserName = res.data;
-            return response.data.id;
-        } else {
-            throw new Error('API実行エラーまたは、ユーザーIDが不正です。 HTTPステータス: ' + String(res.status));
+        try {
+            const res = await this.axiosRequestBase.get('/2/users/by/username/' + screenName);
+            if (res.status === 200) {
+                const response: LookupUserName = res.data;
+                return response.data.id;
+            } else {
+                throw new Error('API実行エラーまたは、ユーザーIDが不正です。 HTTPステータス: ' + String(res.status));
+            }
+        } catch (e) {
+            return 'API実行エラーです at User.screenNameToUserId';
         }
     }
 }

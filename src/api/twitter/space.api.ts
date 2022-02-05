@@ -1,5 +1,5 @@
 import { TwitterBase } from './twitterBase.api';
-import { SpaceInfo } from '../../modules/space/twitterResponseType.interface';
+import { MultipleLookupSpacesByCreatedUserId } from '../../modules/space/twitterResponseType.interface';
 
 export class Space extends TwitterBase {
     private endpoint = '/2/spaces/by/creator_ids?';
@@ -7,22 +7,31 @@ export class Space extends TwitterBase {
     private expansions = 'invited_user_ids,speaker_ids,creator_id,host_ids';
     private userFields = 'name,username,withheld';
 
-    async searchSpaces(usersId: string[]): Promise<SpaceInfo | undefined> {
+    /**
+     * userIdが開催しているスペース情報を取得する
+     * @param usersId userId
+     * @returns
+     */
+    async searchSpaces(usersId: string[]): Promise<MultipleLookupSpacesByCreatedUserId | undefined> {
         const usersIdStr = usersId.toString();
-        const res = await this.axiosRequestBase.get(
-            this.endpoint +
-                'user_ids=' +
-                usersIdStr +
-                '&space.fields=' +
-                this.spaceFields +
-                '&expansions=' +
-                this.expansions +
-                '&user.fields=' +
-                this.userFields
-        );
-        if (res.status === 200) {
-            return res.data;
-        } else {
+        try {
+            const res = await this.axiosRequestBase.get(
+                this.endpoint +
+                    'user_ids=' +
+                    usersIdStr +
+                    '&space.fields=' +
+                    this.spaceFields +
+                    '&expansions=' +
+                    this.expansions +
+                    '&user.fields=' +
+                    this.userFields
+            );
+            if (res.status === 200) {
+                return res.data;
+            } else {
+                throw new Error('Twitter API通信エラー');
+            }
+        } catch (e) {
             throw new Error('Twitter API通信エラー');
         }
     }
