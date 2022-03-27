@@ -1,11 +1,10 @@
 import dotenv from 'dotenv';
 import { Client, Intents } from 'discord.js';
 import { TwitterController } from './controller/twitterController';
-import { GetWeatherData } from './usecase/getWeatherData.usecase';
+import { WeatherController } from './controller/weatherController';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const express = require('express');
 
-const prefix = '>>';
 dotenv.config();
 
 const app = express();
@@ -18,11 +17,15 @@ switch (process.env.ENVIRONMENT) {
     case 'production':
         // eslint-disable-next-line no-var
         var discordToken = process.env.PRODUCTION_TOKEN;
+        // eslint-disable-next-line no-var
+        var prefix = '>>';
         break;
 
     case 'develop':
         // eslint-disable-next-line no-var
         var discordToken = process.env.DEVELOP_TOKEN;
+        // eslint-disable-next-line no-var
+        var prefix = '??';
         break;
 }
 
@@ -49,6 +52,7 @@ client.on('messageCreate', async (m) => {
     const args = m.content.slice(prefix.length).trim().split(/ +/);
     const command = args.shift()?.toLowerCase();
 
+    // スペース情報取得
     if (command === 'supervise_spaces') {
         const twitterController = TwitterController.getInstance();
         const checkResult = twitterController.checkScreenName(args);
@@ -59,11 +63,15 @@ client.on('messageCreate', async (m) => {
         }
     }
 
+    // 天気予報
     if (command === 'weather') {
-        const getweatherData = new GetWeatherData(process.env.WEATHER_TOKEN);
-        const res = await getweatherData.getWeatherInfo(args);
-        if (res === undefined) return;
-        m.channel.send(res);
+        const weatherController = WeatherController.getInstance();
+        const checkResult = weatherController.checkWeatherArgs(args);
+        if (checkResult.error && checkResult.errorMessage) {
+            m.channel.send(checkResult.errorMessage);
+        } else {
+            m.channel.send(await weatherController.searchWeatherData(args));
+        }
     }
 });
 
