@@ -1,4 +1,4 @@
-export interface WeatherResponse {
+export interface WeatherData {
     /** 都市名 */
     name: string;
     /** 天気名 */
