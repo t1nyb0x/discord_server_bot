@@ -1,7 +1,13 @@
+export interface OpenWeatherResponse {
+    error: boolean;
+    data?: OpenWeatherData;
+    errorMessage?: string;
+}
+
 /**
  * OpenWeatherResponse
  */
-export interface OpenWeatherResponse {
+export interface OpenWeatherData {
     /**
      * lon: 緯度
      * lat: 経度
