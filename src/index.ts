@@ -10,9 +10,10 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const ENV = process.env.ENVIRONMENT;
 
-console.log(process.env.ENVIRONMENT);
-switch (process.env.ENVIRONMENT) {
+console.log(ENV);
+switch (ENV) {
     case 'production':
         // eslint-disable-next-line no-var
         var discordToken = process.env.PRODUCTION_TOKEN;
