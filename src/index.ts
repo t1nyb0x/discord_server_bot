@@ -3,13 +3,13 @@ import { Client, Intents } from 'discord.js';
 import { TwitterController } from './controller/twitterController';
 import { WeatherController } from './controller/weatherController';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-// const express = require('express');
+const express = require('express');
 // const dotenv = require('dotenv');
 
 dotenv.config();
 
-// const app = express();
-// const PORT = process.env.PORT || 3000;
+const app = express();
+const PORT = process.env.PORT || 3000;
 const ENV = process.env.ENVIRONMENT;
 
 console.log(ENV);
@@ -30,15 +30,13 @@ switch (ENV) {
         break;
 }
 
-if (discordToken === undefined) {
-    throw new Error('Failed get discordToken');
-}
-
 const client = new Client({
     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS],
 });
 
-client.login(discordToken);
+if (discordToken === undefined) {
+    throw new Error('Failed get discordToken');
+}
 
 client.on('ready', async () => {
     if (client.user === null) {
@@ -77,6 +75,8 @@ client.on('messageCreate', async (m) => {
         }
     }
 });
-// app.listen(PORT, () => {
-//     console.log(`Our app is running on port ${PORT}`);
-// });
+
+client.login(discordToken);
+app.listen(PORT, () => {
+    console.log(`Our app is running on port ${PORT}`);
+});
