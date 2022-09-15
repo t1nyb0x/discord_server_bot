@@ -1,21 +1,21 @@
-name: 'Main Step'
+# name: 'Main Step'
 
-on:
-    push:
-        branches:
-          - master
-jobs:
-    composite_test:
-        runs-on: ubuntu-latest
-        steps:
-          - name: Checkout
-            uses: actions/checkout@v2
-          - name: run action
-            uses: ./.github/actions
-            with:
-                deta-access-token: ${{ secrets.DETA_ACCESS_TOKEN }}
-                deta-name: 'discord_server_bot'
-                deta-project: 'default'
-                # deta-project-dir: 'tmp'
-            env:
-                DETA_ACCESS_TOKEN: ${{ secrets.DETA_ACCESS_TOKEN }}
+# on:
+#     push:
+#         branches:
+#           - master
+# jobs:
+#     composite_test:
+#         runs-on: ubuntu-latest
+#         steps:
+#           - name: Checkout
+#             uses: actions/checkout@v2
+#           - name: run action
+#             uses: ./.github/actions
+#             with:
+#                 deta-access-token: ${{ secrets.DETA_ACCESS_TOKEN }}
+#                 deta-name: 'discord_server_bot'
+#                 deta-project: 'default'
+#                 # deta-project-dir: 'tmp'
+#             env:
+#                 DETA_ACCESS_TOKEN: ${{ secrets.DETA_ACCESS_TOKEN }}

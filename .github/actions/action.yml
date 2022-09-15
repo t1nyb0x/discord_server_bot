@@ -1,60 +1,60 @@
-name: 'Deploy to Deta'
-description: 'Deploy this app to Deta Micro'
+# name: 'Deploy to Deta'
+# description: 'Deploy this app to Deta Micro'
 
-inputs:
-    deta-access-token:
-        description: "Deta access token"
-        required: true
-    deta-name:
-        description: "Deta micro name"
-        required: true
-    deta-project:
-        description: "Deta project name"
-        required: true
-    # deta-project-dir:
-    #     description: "Directory of the project"
-    #     required: true
+# inputs:
+#     deta-access-token:
+#         description: "Deta access token"
+#         required: true
+#     deta-name:
+#         description: "Deta micro name"
+#         required: true
+#     deta-project:
+#         description: "Deta project name"
+#         required: true
+#     # deta-project-dir:
+#     #     description: "Directory of the project"
+#     #     required: true
 
-runs:
-    using: 'composite'
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+# runs:
+#     using: 'composite'
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v2
 
-      - name: Install Deta CLI
-        shell: bash
-        run: |
-            curl -fsSL https://get.deta.dev/cli.sh | sh
-            export DETA_ACCESS_TOKEN=$DETA_ACCESS_TOKEN
-            source ~/.bashrc
+#       - name: Install Deta CLI
+#         shell: bash
+#         run: |
+#             curl -fsSL https://get.deta.dev/cli.sh | sh
+#             export DETA_ACCESS_TOKEN=$DETA_ACCESS_TOKEN
+#             source ~/.bashrc
 
-      - name: node_module install
-        shell: bash
-        run: npm ci
+#       - name: node_module install
+#         shell: bash
+#         run: npm ci
 
-      - name: compile to js
-        shell: bash
-        run: tsc -p .
+#       - name: compile to js
+#         shell: bash
+#         run: tsc -p .
 
-      - name: Clone Deta Metadata
-        shell: bash
-        run: |
-            cd ./build
-            ~/.deta/bin/deta clone --name ${{ inputs.deta-name }} --project ${{ inputs.deta-project }} ./tmp
+#       - name: Clone Deta Metadata
+#         shell: bash
+#         run: |
+#             cd ./build
+#             ~/.deta/bin/deta clone --name ${{ inputs.deta-name }} --project ${{ inputs.deta-project }} ./tmp
 
-      - name: Move Deta Metadata
-        shell: bash
-        run: |
-            cd ./build
-            cp -r ./tmp/.deta ./
-            rm -rf ./tmp
+#       - name: Move Deta Metadata
+#         shell: bash
+#         run: |
+#             cd ./build
+#             cp -r ./tmp/.deta ./
+#             rm -rf ./tmp
 
-      - name: Deploy to Deta
-        shell: bash
-        run: |
-            cd ./build
-            ~/.deta/bin/deta deploy
+#       - name: Deploy to Deta
+#         shell: bash
+#         run: |
+#             cd ./build
+#             ~/.deta/bin/deta deploy
 
-branding:
-    icon: check-circle
-    color: purple
+# branding:
+#     icon: check-circle
+#     color: purple

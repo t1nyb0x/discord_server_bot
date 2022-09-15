@@ -3,22 +3,23 @@ import { Client, Intents } from 'discord.js';
 import { TwitterController } from './controller/twitterController';
 import { WeatherController } from './controller/weatherController';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const express = require('express');
+// const express = require('express');
+// const dotenv = require('dotenv');
 
 dotenv.config();
 
-const app = express();
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Our app is running on port ${PORT}`);
-});
+// const app = express();
+// const PORT = process.env.PORT || 3000;
+const ENV = process.env.ENVIRONMENT;
 
-switch (process.env.ENVIRONMENT) {
+console.log(ENV);
+switch (ENV) {
     case 'production':
         // eslint-disable-next-line no-var
         var discordToken = process.env.PRODUCTION_TOKEN;
         // eslint-disable-next-line no-var
         var prefix = '>>';
+        console.log('Loaded token');
         break;
 
     case 'develop':
@@ -29,13 +30,15 @@ switch (process.env.ENVIRONMENT) {
         break;
 }
 
+if (discordToken === undefined) {
+    throw new Error('Failed get discordToken');
+}
+
 const client = new Client({
     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS],
 });
 
-if (discordToken === undefined) {
-    throw new Error('Failed get discordToken');
-}
+client.login(discordToken);
 
 client.on('ready', async () => {
     if (client.user === null) {
@@ -74,5 +77,6 @@ client.on('messageCreate', async (m) => {
         }
     }
 });
-
-client.login(discordToken);
+// app.listen(PORT, () => {
+//     console.log(`Our app is running on port ${PORT}`);
+// });
