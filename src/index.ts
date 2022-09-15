@@ -10,9 +10,6 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Our app is running on port ${PORT}`);
-});
 
 console.log(process.env.ENVIRONMENT);
 switch (process.env.ENVIRONMENT) {
@@ -79,3 +76,6 @@ client.on('messageCreate', async (m) => {
 });
 
 client.login(discordToken);
+app.listen(PORT, () => {
+    console.log(`Our app is running on port ${PORT}`);
+});
