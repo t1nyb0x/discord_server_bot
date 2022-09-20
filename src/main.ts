@@ -2,14 +2,8 @@ import dotenv from 'dotenv';
 import { Client, Intents } from 'discord.js';
 import { TwitterController } from './controller/twitterController';
 import { WeatherController } from './controller/weatherController';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-// const express = require('express');
-// const dotenv = require('dotenv');
 
 dotenv.config();
-
-// const app = express();
-// const PORT = process.env.PORT || 3000;
 const ENV = process.env.ENVIRONMENT;
 
 console.log(ENV);
@@ -77,6 +71,3 @@ client.on('messageCreate', async (m) => {
         }
     }
 });
-// app.listen(PORT, () => {
-//     console.log(`Our app is running on port ${PORT}`);
-// });

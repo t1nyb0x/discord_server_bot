@@ -17,6 +17,7 @@ app.listen(PORT, () => {
 if (PUBLIC_KEY) {
     app.post('/interactions', verifyKeyMiddleware(PUBLIC_KEY), async(req, res) => {
         const interaction = req.body;
+        console.log(interaction);
 
         if (interaction.type === InteractionType.APPLICATION_COMMAND) {
             console.log(interaction.data.name);
