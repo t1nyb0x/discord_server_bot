@@ -2,17 +2,17 @@
     "name": "discord-b0x",
     "version": "1.0.1",
     "description": "",
-    "main": "build/server.js",
+    "main": "build/main.js",
     "engines": {
         "node": "16.x"
     },
     "scripts": {
-        "start": "node ./build/server.js",
-        "debug": "ts-node ./src/server.ts",
+        "start": "node ./build/main.js",
+        "debug": "ts-node ./src/main.ts",
         "compile": "tsc -p .",
         "compile:test": "tsc -p . --noEmit",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "lint": "eslint src/server.ts",
+        "lint": "eslint src/main.ts",
         "postinstall": "tsc -p ."
     },
     "lint-staged": {
