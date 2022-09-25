@@ -13,7 +13,7 @@ export class TwitterBase {
         this.axiosRequestBase = axios.create({
             baseURL: 'https://api.twitter.com',
             headers: {
-                Authorization: this.bearer,
+                Authorization: `Bearer ${this.bearer}`,
             },
             responseType: 'json',
         });
