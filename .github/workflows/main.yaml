@@ -1,0 +1,14 @@
+name: deploy to fly.io
+on:
+  push:
+    branches:
+      - master
+env:
+  FLY_API_TOKEN: ${{ secrets.FLY_TOKEN }}
+jobs:
+  deploy-fly-job:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - run: flyctl deploy --detach --local-only
